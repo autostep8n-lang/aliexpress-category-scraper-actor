@@ -5,7 +5,7 @@ FROM apify/actor-node-playwright-chrome:20
 COPY package*.json ./
 
 # Install ALL dependencies (including devDependencies)
-RUN npm ci
+RUN npm ci --include=dev
 
 # Copy source
 COPY . .
