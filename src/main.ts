@@ -5,8 +5,8 @@
 
 import { Actor } from 'apify';
 import { PlaywrightCrawler, log, ProxyConfiguration } from 'crawlee';
-import { router } from './routes';
-import { InputSchema } from './types';
+import { router } from './routes.js';
+import { InputSchema } from './types.js';
 
 // Initialize the Apify Actor environment
 await Actor.init();

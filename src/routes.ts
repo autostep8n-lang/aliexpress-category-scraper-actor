@@ -5,8 +5,8 @@
 
 import { createPlaywrightRouter, Dataset, log } from 'crawlee';
 import * as cheerio from 'cheerio';
-import { extractFromProductDetailPage, extractFromCategoryCard } from './extractors/windowDataExtractor';
-import { extractProductId } from './utils/cleaners';
+import { extractFromProductDetailPage, extractFromCategoryCard } from './extractors/windowDataExtractor.js';
+import { extractProductId } from './utils/cleaners.js';
 
 export const router = createPlaywrightRouter();
 

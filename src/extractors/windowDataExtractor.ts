@@ -4,7 +4,8 @@
  */
 
 import { CheerioAPI } from 'cheerio';
-import { AliExpressProductItem, ShippingDetails } from '../types';
+import { AliExpressProductItem, ShippingDetails } from '../types.js';
+
 import {
     stripHtml,
     parsePriceToNumber,
@@ -12,7 +13,7 @@ import {
     cleanDiscountPercent,
     parseOrderCount,
     toHighResImage
-} from '../utils/cleaners';
+} from '../utils/cleaners.js';
 
 /**
  * Extracts product details from window object embedded inside product listing or details pages.
