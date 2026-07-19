@@ -1,0 +1,52 @@
+{
+  "title": "AliExpress Category Scraper Input Configuration",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "category_url": {
+      "title": "Category URL",
+      "type": "string",
+      "description": "The AliExpress Category or Search URL to scrape (e.g., https://www.aliexpress.com/category/200000343/consumer-electronics.html or https://www.aliexpress.com/w/wholesale-smart-watch.html).",
+      "editor": "textfield",
+      "prefill": "https://www.aliexpress.com/category/200000343/consumer-electronics.html"
+    },
+    "max_items": {
+      "title": "Max Items to Scrape",
+      "type": "integer",
+      "description": "Maximum number of products to scrape from the category across all pages.",
+      "minimum": 1,
+      "default": 100
+    },
+    "target_country": {
+      "title": "Target Delivery Country Context",
+      "type": "string",
+      "description": "ISO 2-letter country code used to set regional pricing, warehouse availability, and shipping calculations (e.g., US, EG, UK, DE).",
+      "editor": "textfield",
+      "default": "US"
+    },
+    "target_currency": {
+      "title": "Target Currency Code",
+      "type": "string",
+      "description": "3-letter currency code for output prices (e.g., USD, EGP, EUR, GBP).",
+      "editor": "textfield",
+      "default": "USD"
+    },
+    "scrape_product_details": {
+      "title": "Deep Scrape Product Detail Pages",
+      "type": "boolean",
+      "description": "If enabled, the scraper visits every individual product listing page to extract deep 17-point details including full reviews, exact shipping breakdown, specs, and selling points. If disabled, extracts fast lightweight items directly from the category listing cards.",
+      "default": true
+    },
+    "proxy_configuration": {
+      "title": "Proxy Configuration",
+      "type": "object",
+      "description": "Proxy setup to bypass AliExpress anti-bot protection. Apify Residential Proxies are strongly recommended.",
+      "editor": "proxy",
+      "prefill": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": ["RESIDENTIAL"]
+      }
+    }
+  },
+  "required": ["category_url"]
+}

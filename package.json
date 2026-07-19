@@ -1,0 +1,36 @@
+{
+  "name": "aliexpress-category-scraper-actor",
+  "version": "1.0.0",
+  "description": "Production-grade Apify Actor for scraping 17 structured data points from AliExpress category URLs with dynamic Playwright rendering, JSON interception, and clean schema output.",
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "node dist/main.js",
+    "start:dev": "ts-node-esm src/main.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "apify",
+    "actor",
+    "aliexpress",
+    "scraper",
+    "ecommerce",
+    "web-scraping",
+    "playwright",
+    "crawlee"
+  ],
+  "author": "Expert Automation & Web Scraping Agent",
+  "license": "ISC",
+  "dependencies": {
+    "apify": "^3.2.0",
+    "crawlee": "^3.10.0",
+    "cheerio": "^1.0.0-rc.12",
+    "playwright": "^1.45.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.0"
+  }
+}

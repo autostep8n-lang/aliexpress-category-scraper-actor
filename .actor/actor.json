@@ -1,0 +1,12 @@
+{
+  "actorSpecification": 1,
+  "name": "aliexpress-category-scraper-actor",
+  "title": "AliExpress Category 17-Point Scraper",
+  "description": "Scrapes AliExpress category URLs with dynamic pagination & JavaScript rendering. Extracts 17 precise data points per product (shipping, original/final prices, discounts, stock, reviews, selling points, structured specs) into clean JSON/CSV.",
+  "version": "1.0.0",
+  "meta": {
+    "templateId": "ts-playwright"
+  },
+  "dockerfile": "../Dockerfile",
+  "input": "./input_schema.json"
+}
