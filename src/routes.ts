@@ -142,7 +142,26 @@ router.addHandler('PRODUCT_DETAIL', async ({ page, request }) => {
     null,
         html: document.documentElement.outerHTML,
     }));log.info(`Final URL: ${page.url()}`);
+const scriptText = await page.evaluate(() => {
+    const scripts = [...document.querySelectorAll("script")];
 
+    const target = scripts.find(s =>
+        s.textContent?.includes("window._d_c_.DCData")
+    );
+
+    return target?.textContent || "";
+});
+log.info(`DCData script length: ${scriptText.length}`);
+
+const idx = scriptText.indexOf("window._d_c_.DCData");
+
+log.info(`DCData index: ${idx}`);
+
+if (idx !== -1) {
+    log.info("===== DCDATA START =====");
+    log.info(scriptText.substring(idx, idx + 8000));
+    log.info("===== DCDATA END =====");
+}
     // ===== DEBUG =====
     log.info(`HTML length: ${html.length}`);
     log.info(`windowData exists: ${!!windowData}`);
