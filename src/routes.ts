@@ -140,7 +140,7 @@ router.addHandler('PRODUCT_DETAIL', async ({ page, request }) => {
             (window as any).__PRELOADED_STATE__ ||
             null,
         html: document.documentElement.outerHTML,
-    }));
+    }));log.info(`Final URL: ${page.url()}`);
 
     // ===== DEBUG =====
     log.info(`HTML length: ${html.length}`);
