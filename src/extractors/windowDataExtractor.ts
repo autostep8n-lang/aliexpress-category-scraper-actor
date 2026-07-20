@@ -26,8 +26,11 @@ export function extractFromProductDetailPage(
     defaultCurrency: string
 ): AliExpressProductItem {
     // Attempt to locate structured modules from window._runParams or window.__INIT_DATA__
-    const data = windowData?.data || windowData || {};
-    const priceModule = data.priceModule || {};
+const data =
+    windowData?.DCData ||
+    windowData?.data ||
+    windowData ||
+    {};    const priceModule = data.priceModule || {};
     const shippingModule = data.shippingModule || data.webGeneralShipping || {};
     const skuModule = data.skuModule || {};
     const titleModule = data.titleModule || {};
