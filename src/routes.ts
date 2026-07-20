@@ -151,6 +151,11 @@ const scriptText = await page.evaluate(() => {
 
     return target?.textContent || "";
 });
+const dcData = await page.evaluate(() => (window as any)._d_c_?.DCData || null);
+log.info("DCData exists: " + !!dcData);
+if (dcData) {
+    log.info("DCData keys: " + Object.keys(dcData).join(", "));
+}
 log.info(`DCData script length: ${scriptText.length}`);
 
 const idx = scriptText.indexOf("window._d_c_.DCData");
