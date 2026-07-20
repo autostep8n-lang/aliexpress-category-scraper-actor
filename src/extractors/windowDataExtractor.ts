@@ -30,7 +30,10 @@ const data =
     windowData?.DCData ||
     windowData?.data ||
     windowData ||
-    {};    const priceModule = data.priceModule || {};
+    {}; 
+    console.log(Object.keys(data));
+    console.log(JSON.stringify(data).substring(0, 3000));
+    const priceModule = data.priceModule || {};
     const shippingModule = data.shippingModule || data.webGeneralShipping || {};
     const skuModule = data.skuModule || {};
     const titleModule = data.titleModule || {};
