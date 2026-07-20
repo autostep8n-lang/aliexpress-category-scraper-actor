@@ -114,35 +114,66 @@ router.addHandler('CATEGORY', async ({ page, request, enqueueLinks, crawler }) =
  */
 router.addHandler('PRODUCT_DETAIL', async ({ page, request }) => {
     log.info(`[Product Detail Route] Scraping: ${request.url}`);
-    
-    const { target_country = 'US', target_currency = 'USD', source_category_url = request.url } = request.userData;
 
-    // Wait for main title or price module to settle in DOM
+    const {
+        target_country = 'US',
+        target_currency = 'USD',
+        source_category_url = request.url,
+    } = request.userData;
+
+    // Wait for page to render
     try {
-        await page.waitForSelector('h1, [class*="title"], [class*="price"]', { timeout: 10000 });
+        await page.waitForLoadState('domcontentloaded');
+        await page.waitForTimeout(5000);
+
+        await page.waitForSelector('body', { timeout: 10000 });
     } catch (e) {
-        log.warning(`[Product Detail Route] Timeout waiting for selectors on ${request.url}. Proceeding with extraction anyway...`);
+        log.warning(`[Product Detail Route] Timeout waiting for page on ${request.url}.`);
     }
 
-    // Extract window state and raw HTML
-   const { windowData, html } = await page.evaluate(() => ({
-    windowData: (window as any)._runParams || (window as any).__INIT_DATA__ || null,
-    html: document.documentElement.outerHTML
-}));
+    // Extract HTML + window data
+    const { windowData, html } = await page.evaluate(() => ({
+        windowData:
+            (window as any)._runParams ||
+            (window as any).__INIT_DATA__ ||
+            (window as any).__NEXT_DATA__ ||
+            (window as any).__PRELOADED_STATE__ ||
+            null,
+        html: document.documentElement.outerHTML,
+    }));
 
-log.info(`windowData exists: ${!!windowData}`);
+    // ===== DEBUG =====
+    log.info(`HTML length: ${html.length}`);
+    log.info(`windowData exists: ${!!windowData}`);
 
-if (windowData) {
-    log.info(`windowData keys: ${Object.keys(windowData).join(", ")}`);
-}
+    if (windowData) {
+        log.info(`windowData keys: ${Object.keys(windowData).join(", ")}`);
+    }
+
+    log.info(`Has __NEXT_DATA__: ${html.includes("__NEXT_DATA__")}`);
+    log.info(`Has priceModule: ${html.includes("priceModule")}`);
+    log.info(`Has titleModule: ${html.includes("titleModule")}`);
+    log.info(`Has skuModule: ${html.includes("skuModule")}`);
+    log.info(`Has imageModule: ${html.includes("imageModule")}`);
+    log.info(`Has shippingModule: ${html.includes("shippingModule")}`);
+
+    // =================
 
     const $ = cheerio.load(html);
 
-    // Run our comprehensive 17-point extraction engine
-    const extractedData = extractFromProductDetailPage($, request.url, windowData, target_country, target_currency);
+    const extractedData = extractFromProductDetailPage(
+        $,
+        request.url,
+        windowData,
+        target_country,
+        target_currency
+    );
+
     extractedData._metadata.source_category_url = source_category_url;
 
-    // Push the perfectly formatted JSON record directly to the Apify Dataset
     await Dataset.pushData(extractedData);
-    log.info(`[Product Detail Route] Successfully extracted and saved item: ${extractedData.product_id} (${extractedData.title.substring(0, 40)}...)`);
+
+    log.info(
+        `[Product Detail Route] Successfully extracted and saved item: ${extractedData.product_id} (${extractedData.title.substring(0, 40)}...)`
+    );
 });
