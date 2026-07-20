@@ -125,10 +125,16 @@ router.addHandler('PRODUCT_DETAIL', async ({ page, request }) => {
     }
 
     // Extract window state and raw HTML
-    const { windowData, html } = await page.evaluate(() => ({
-        windowData: (window as any)._runParams || (window as any).__INIT_DATA__ || null,
-        html: document.documentElement.outerHTML
-    }));
+   const { windowData, html } = await page.evaluate(() => ({
+    windowData: (window as any)._runParams || (window as any).__INIT_DATA__ || null,
+    html: document.documentElement.outerHTML
+}));
+
+log.info(`windowData exists: ${!!windowData}`);
+
+if (windowData) {
+    log.info(`windowData keys: ${Object.keys(windowData).join(", ")}`);
+}
 
     const $ = cheerio.load(html);
 
