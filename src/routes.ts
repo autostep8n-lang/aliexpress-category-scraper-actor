@@ -166,7 +166,19 @@ log.info(`Has ae_object_value: ${html.includes("ae_object_value")}`);
 log.info(`Has webpdp: ${html.includes("webpdp")}`);
 log.info(`Has productInfoComponent: ${html.includes("productInfoComponent")}`);
     // =================
+const scripts = await page.$$eval("script", els =>
+    els.map(el => el.textContent || "")
+);
 
+const runScript = scripts.find(s => s.includes("runParams"));
+
+if (runScript) {
+    log.info("===== RUNPARAMS SCRIPT START =====");
+    log.info(runScript.substring(0, 1500));
+    log.info("===== RUNPARAMS SCRIPT END =====");
+} else {
+    log.info("No script containing runParams found.");
+}
     const $ = cheerio.load(html);
 
     const extractedData = extractFromProductDetailPage(
