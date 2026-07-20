@@ -133,12 +133,13 @@ router.addHandler('PRODUCT_DETAIL', async ({ page, request }) => {
 
     // Extract HTML + window data
     const { windowData, html } = await page.evaluate(() => ({
-        windowData:
-            (window as any)._runParams ||
-            (window as any).__INIT_DATA__ ||
-            (window as any).__NEXT_DATA__ ||
-            (window as any).__PRELOADED_STATE__ ||
-            null,
+       windowData:
+    (window as any).runParams ||
+    (window as any)._runParams ||
+    (window as any).__INIT_DATA__ ||
+    (window as any).__NEXT_DATA__ ||
+    (window as any).__PRELOADED_STATE__ ||
+    null,
         html: document.documentElement.outerHTML,
     }));log.info(`Final URL: ${page.url()}`);
 
