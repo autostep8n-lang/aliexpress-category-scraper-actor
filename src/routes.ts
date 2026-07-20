@@ -156,7 +156,14 @@ router.addHandler('PRODUCT_DETAIL', async ({ page, request }) => {
     log.info(`Has skuModule: ${html.includes("skuModule")}`);
     log.info(`Has imageModule: ${html.includes("imageModule")}`);
     log.info(`Has shippingModule: ${html.includes("shippingModule")}`);
-
+    log.info(`Has __INITIAL_STATE__: ${html.includes("__INITIAL_STATE__")}`);
+log.info(`Has INITIAL_STATE: ${html.includes("INITIAL_STATE")}`);
+log.info(`Has runParams: ${html.includes("runParams")}`);
+log.info(`Has __APOLLO_STATE__: ${html.includes("__APOLLO_STATE__")}`);
+log.info(`Has __NUXT__: ${html.includes("__NUXT__")}`);
+log.info(`Has ae_object_value: ${html.includes("ae_object_value")}`);
+log.info(`Has webpdp: ${html.includes("webpdp")}`);
+log.info(`Has productInfoComponent: ${html.includes("productInfoComponent")}`);
     // =================
 
     const $ = cheerio.load(html);
